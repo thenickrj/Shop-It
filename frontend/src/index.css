@@ -14,6 +14,8 @@ code {
 
 .row {
   display: flex;
+  flex-direction: row;
+
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
@@ -34,6 +36,7 @@ code {
   grid-template-areas: "header" "main" "footer";
   grid-template-columns: 1fr;
   grid-template-rows: 4rem 1fr 5rem;
+  background-color: #eaeded;
 }
 /* Navbar */
 header {
@@ -44,4 +47,58 @@ header {
   width: 100px;
   object-fit: contain;
   margin: 5px 20px 0;
+}
+
+/* Image */
+img {
+  border-radius: 0.5rem;
+}
+img.small {
+  max-width: 5rem;
+  width: 100%;
+}
+img.medium {
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+}
+img.large {
+  width: 100%;
+}
+
+/* Product Cards */
+.product_container {
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  border-radius: 0.5rem;
+  background: #fff;
+  margin: 1rem;
+  position: relative;
+  width: 20rem;
+  height: 88vh;
+  /* height: fit; */
+  /* max-height: 45rem;
+  padding-bottom: 52%; */
+}
+
+.card_body {
+  padding: 1rem;
+}
+
+h2 {
+  max-inline-size: fit-content;
+}
+.card_body > * {
+  margin-bottom: 0.5rem;
+}
+.price {
+  font-size: 2rem;
+}
+
+.col-container {
+  width: 100%; /* Set full-width to expand the whole page */
+}
+
+.col {
+  display: table-cell; /* Make elements inside the container behave like table cells */
 }
