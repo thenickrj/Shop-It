@@ -1,6 +1,7 @@
 var express = require("express");
 var mongoose = require("mongoose");
 const productRouter = require("./routers/productRouter");
+const userRouter = require("./routers/userRouter");
 
 var app = express();
 
@@ -12,6 +13,7 @@ mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/shopit", {
   useUnifiedTopology: true,
 });
 
+app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
 const port = process.env.PORT || 5000;
 
