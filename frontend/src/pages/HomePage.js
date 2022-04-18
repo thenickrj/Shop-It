@@ -50,7 +50,7 @@ function HomePage() {
           </Carousel>
         </>
       )}
-      <div class="row">
+      <div className="row">
         <h2>Featured Products</h2>
         <button onClick={() => navigate(`/search/name`)}>
           See all Products

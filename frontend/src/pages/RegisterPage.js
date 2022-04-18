@@ -125,7 +125,7 @@ function RegisterPage() {
 
   useEffect(() => {
     if (userInfo) {
-      navigate(`/${redirect}`, { replace: true });
+      navigate(`../${redirect}`, { replace: true });
     }
   }, [userInfo, redirect, navigate]);
 
