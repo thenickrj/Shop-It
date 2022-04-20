@@ -5,7 +5,23 @@ import { createReview, detailsProduct } from "../actions/productActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import Rating from "../components/Rating";
+import styled from "styled-components";
 import { PRODUCT_REVIEW_CREATE_RESET } from "../constants/productConstants";
+
+let Container = styled.div`
+  .review_section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    align-items: center;
+  }
+  .review_container {
+    background-color: white;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
+      rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+  }
+`;
 
 function ProductPage() {
   let { id } = useParams();
@@ -55,182 +71,189 @@ function ProductPage() {
     }
   };
   return (
-    <div>
-      {loading ? (
-        <LoadingBox></LoadingBox>
-      ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
-      ) : (
-        <div>
-          {/* <Link to="/">Back to Result</Link> */}
-          <button onClick={() => window.history.go(-1)}>Go Back</button>
-          <div className="row top">
-            <div className="col-2">
-              <img
-                className="large"
-                src={product.image}
-                alt={product.name}
-              ></img>
+    <Container>
+      <div>
+        {loading ? (
+          <LoadingBox></LoadingBox>
+        ) : error ? (
+          <MessageBox variant="danger">{error}</MessageBox>
+        ) : (
+          <div>
+            {/* <Link to="/">Back to Result</Link> */}
+            <button onClick={() => window.history.go(-1)}>Go Back</button>
+            <div className="row top">
+              <div className="col-2">
+                <img
+                  className="large"
+                  src={product.image}
+                  alt={product.name}
+                ></img>
+              </div>
+              <div className="col-1">
+                <ul>
+                  <li>
+                    <h1>{product.name}</h1>
+                  </li>
+                  <li>
+                    <h3>{product.brand}</h3>
+                  </li>
+                  <li>
+                    <Rating
+                      rating={product.rating}
+                      numReviews={product.numReviews}
+                    />
+                  </li>
+                  <li>
+                    Price:<b>₹ {product.price}</b>
+                  </li>
+                  <li>
+                    Description:
+                    <p>{product.description}</p>
+                  </li>
+                </ul>
+              </div>
+              <div className="col-1">
+                <div className="card card-body">
+                  <ul>
+                    <li>
+                      Seller
+                      <h2>
+                        <Link to={`/seller/${product.seller._id}`}>
+                          {product.seller.seller.name}
+                        </Link>
+                      </h2>
+                      <Rating
+                        rating={product.seller.seller.rating}
+                        numReviews={product.seller.seller.numReviews}
+                      ></Rating>
+                    </li>
+                    <li>
+                      <div className="row">
+                        <div>Price</div>
+                        <div className="price">₹ {product.price}</div>
+                      </div>
+                    </li>
+                    <li>
+                      <div className="row">
+                        <div>Status</div>
+                        <div>
+                          {product.countInStock > 0 ? (
+                            <span className="success">In Stock</span>
+                          ) : (
+                            <span className="danger">Unavailable</span>
+                          )}
+                        </div>
+                      </div>
+                    </li>
+                    {product.countInStock > 0 && (
+                      <>
+                        <li>
+                          <div className="row">
+                            <div>Quantity</div>
+                            <div>
+                              <select
+                                value={qty}
+                                onChange={(e) => setQty(e.target.value)}
+                              >
+                                {[...Array(product.countInStock).keys()].map(
+                                  (x) => (
+                                    <option key={x + 1} value={x + 1}>
+                                      {x + 1}
+                                    </option>
+                                  )
+                                )}
+                              </select>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <button
+                            onClick={addToCartHandler}
+                            className="primary block"
+                          >
+                            Add to Cart
+                          </button>
+                        </li>
+                      </>
+                    )}
+                  </ul>
+                </div>
+              </div>
             </div>
-            <div className="col-1">
+            <div id="reviews">
+              <h2>Reviews</h2>
+
+              {product.reviews.length === 0 && (
+                <MessageBox>There is no review</MessageBox>
+              )}
               <ul>
+                <div className="review_section">
+                  {product.reviews.map((review) => (
+                    <>
+                      <li className="review_container" key={review._id}>
+                        <strong>{review.name}</strong>
+                        <Rating rating={review.rating} caption=" "></Rating>
+                        <p>{review.createdAt.substring(0, 10)}</p>
+                        <p>{review.comment}</p>
+                      </li>
+                    </>
+                  ))}
+                </div>
                 <li>
-                  <h1>{product.name}</h1>
-                </li>
-                <li>
-                  <h3>{product.brand}</h3>
-                </li>
-                <li>
-                  <Rating
-                    rating={product.rating}
-                    numReviews={product.numReviews}
-                  />
-                </li>
-                <li>
-                  Price:<b>₹ {product.price}</b>
-                </li>
-                <li>
-                  Description:
-                  <p>{product.description}</p>
+                  {userInfo ? (
+                    <form className="form" onSubmit={submitHandler}>
+                      <div>
+                        <h2>Write a customer review</h2>
+                      </div>
+                      <div>
+                        <label htmlFor="rating">Rating</label>
+                        <select
+                          id="rating"
+                          value={rating}
+                          onChange={(e) => setRating(e.target.value)}
+                        >
+                          <option value="">Select...</option>
+                          <option value="1">1- Poor</option>
+                          <option value="2">2- Fair</option>
+                          <option value="3">3- Good</option>
+                          <option value="4">4- Very Good</option>
+                          <option value="5">5- Excellent</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label htmlFor="comment">Comment</label>
+                        <textarea
+                          id="comment"
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                        ></textarea>
+                      </div>
+                      <label>
+                        <button className="primary" type="submit">
+                          Submit
+                        </button>
+                      </label>
+                      <div>
+                        {loadingReviewCreate && <LoadingBox></LoadingBox>}
+                        {errorReviewCreate && (
+                          <MessageBox variant="danger">
+                            {errorReviewCreate}
+                          </MessageBox>
+                        )}
+                      </div>
+                    </form>
+                  ) : (
+                    <MessageBox>
+                      Please <Link to="/signin">Sign In</Link> to write a review
+                    </MessageBox>
+                  )}
                 </li>
               </ul>
             </div>
-            <div className="col-1">
-              <div className="card card-body">
-                <ul>
-                  <li>
-                    Seller
-                    <h2>
-                      <Link to={`/seller/${product.seller._id}`}>
-                        {product.seller.seller.name}
-                      </Link>
-                    </h2>
-                    <Rating
-                      rating={product.seller.seller.rating}
-                      numReviews={product.seller.seller.numReviews}
-                    ></Rating>
-                  </li>
-                  <li>
-                    <div className="row">
-                      <div>Price</div>
-                      <div className="price">₹ {product.price}</div>
-                    </div>
-                  </li>
-                  <li>
-                    <div className="row">
-                      <div>Status</div>
-                      <div>
-                        {product.countInStock > 0 ? (
-                          <span className="success">In Stock</span>
-                        ) : (
-                          <span className="danger">Unavailable</span>
-                        )}
-                      </div>
-                    </div>
-                  </li>
-                  {product.countInStock > 0 && (
-                    <>
-                      <li>
-                        <div className="row">
-                          <div>Quantity</div>
-                          <div>
-                            <select
-                              value={qty}
-                              onChange={(e) => setQty(e.target.value)}
-                            >
-                              {[...Array(product.countInStock).keys()].map(
-                                (x) => (
-                                  <option key={x + 1} value={x + 1}>
-                                    {x + 1}
-                                  </option>
-                                )
-                              )}
-                            </select>
-                          </div>
-                        </div>
-                      </li>
-                      <li>
-                        <button
-                          onClick={addToCartHandler}
-                          className="primary block"
-                        >
-                          Add to Cart
-                        </button>
-                      </li>
-                    </>
-                  )}
-                </ul>
-              </div>
-            </div>
           </div>
-          <div id="reviews">
-            <h2>Reviews</h2>
-            {product.reviews.length === 0 && (
-              <MessageBox>There is no review</MessageBox>
-            )}
-            <ul>
-              {product.reviews.map((review) => (
-                <li key={review._id}>
-                  <strong>{review.name}</strong>
-                  <Rating rating={review.rating} caption=" "></Rating>
-                  <p>{review.createdAt.substring(0, 10)}</p>
-                  <p>{review.comment}</p>
-                </li>
-              ))}
-              <li>
-                {userInfo ? (
-                  <form className="form" onSubmit={submitHandler}>
-                    <div>
-                      <h2>Write a customer review</h2>
-                    </div>
-                    <div>
-                      <label htmlFor="rating">Rating</label>
-                      <select
-                        id="rating"
-                        value={rating}
-                        onChange={(e) => setRating(e.target.value)}
-                      >
-                        <option value="">Select...</option>
-                        <option value="1">1- Poor</option>
-                        <option value="2">2- Fair</option>
-                        <option value="3">3- Good</option>
-                        <option value="4">4- Very Good</option>
-                        <option value="5">5- Excellent</option>
-                      </select>
-                    </div>
-                    <div>
-                      <label htmlFor="comment">Comment</label>
-                      <textarea
-                        id="comment"
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                      ></textarea>
-                    </div>
-                    <label>
-                      <button className="primary" type="submit">
-                        Submit
-                      </button>
-                    </label>
-                    <div>
-                      {loadingReviewCreate && <LoadingBox></LoadingBox>}
-                      {errorReviewCreate && (
-                        <MessageBox variant="danger">
-                          {errorReviewCreate}
-                        </MessageBox>
-                      )}
-                    </div>
-                  </form>
-                ) : (
-                  <MessageBox>
-                    Please <Link to="/signin">Sign In</Link> to write a review
-                  </MessageBox>
-                )}
-              </li>
-            </ul>
-          </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </Container>
   );
 }
 
