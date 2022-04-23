@@ -24,7 +24,7 @@ let Container = styled.div`
 
   #container {
     width: 350px;
-    height: 550px;
+    height: calc(100% - 140px);
     background: inherit;
     position: absolute;
     overflow: hidden;
@@ -37,7 +37,7 @@ let Container = styled.div`
 
   #container:before {
     width: 400px;
-    height: 550px;
+    ${"" /* height: 550px; */}
     content: "";
     position: absolute;
     top: -25px;
@@ -157,7 +157,7 @@ function RegisterPage() {
               onChange={(e) => setEmail(e.target.value)}
             />
             <input
-              type="text"
+              type="password"
               id="name"
               placeholder="Enter Password"
               required
@@ -165,7 +165,7 @@ function RegisterPage() {
               onChange={(e) => setPassword(e.target.value)}
             />
             <input
-              type="text"
+              type="password"
               id="name"
               placeholder="Confirm Password"
               required
@@ -178,6 +178,7 @@ function RegisterPage() {
             <div>
               <label />
               Already have an account?
+              <br />
               <Link to={`/signin?redirect=${redirect}`}>Sign In</Link>
             </div>
           </form>
