@@ -35,12 +35,15 @@ import DashboardScreen from "./pages/DashboardScreen";
 import SupportPage from "./pages/SupportPage";
 import ChatBox from "./components/ChatBox";
 import styled from "styled-components";
+import Test from "./pages/Test";
+import Slider from "react-slick";
 
 let promise = loadStripe(
   "pk_test_51JjToBSAz6mTYX283KnxV1hqIZJZcpb62a4ObSHVBL9wgdmgNhewq1BdCHJNO6i43a2K3cOmb1cAKzsNilTw9yfS00Iv2R8pKk"
 );
 
 const Container = styled.div`
+  background-color: #eaeded;
   .navBar {
     box-shadow: rgb(0 0 0 / 25%) 0px 25px 50px -12px;
   }
@@ -83,10 +86,18 @@ function App() {
   let signoutHandler = () => {
     dispatch(signout());
   };
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
     <Container>
       <Router>
-        <div className="grid-container">
+        <div className="">
           <header className="navBar row mob-row">
             <div>
               <button
@@ -297,6 +308,8 @@ function App() {
               />
 
               <Route path="/seller/:id" element={<SellerPage />} />
+
+              <Route path="/test" exact element={<Test />} />
 
               <Route path="/" exact element={<HomePage />} />
             </Routes>
