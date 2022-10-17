@@ -56,7 +56,10 @@ const Container = styled.div`
   }
 
   .carousel_container {
-    background-image: url("https://raw.githubusercontent.com/navvitech/carousels-in-react/main/src/assets/carouselImage1.jpg");
+    background-image: url("https://i.pinimg.com/564x/2f/71/83/2f7183ba327a64ebce89b0f6c8f1ba08.jpg");
+    ${
+      "" /* background-image: url("https://raw.githubusercontent.com/navvitech/carousels-in-react/main/src/assets/carouselImage1.jpg"); */
+    }
   }
 
   .carousel_inner {
@@ -65,6 +68,13 @@ const Container = styled.div`
     align-items: center;
     text-align: center;
   }
+
+  .legend {
+    background: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
 `;
 
 const PreviousBtn = (props) => {
@@ -72,7 +82,12 @@ const PreviousBtn = (props) => {
   const { className, onClick } = props;
   return (
     <div className={className} onClick={onClick}>
-      <ArrowBackIos style={{ color: "black", fontSize: "30px" }} />
+      <ArrowBackIos
+        style={{
+          color: "black",
+          fontSize: "30px",
+        }}
+      />
     </div>
   );
 };
