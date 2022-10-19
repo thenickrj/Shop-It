@@ -1,6 +1,7 @@
 html {
   font-size: 62.5%;
   box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 body {
   margin: 0;
@@ -404,6 +405,7 @@ aside {
   position: fixed;
   width: 30rem;
   height: 100%;
+  top: 0;
   background-color: #efefef;
   z-index: 1000;
   transform: translateX(-30rem);
