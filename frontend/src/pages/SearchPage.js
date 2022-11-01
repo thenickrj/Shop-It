@@ -67,7 +67,7 @@ function SearchPage() {
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <div class="filter_box">No of Results: {productsCount}</div>
+          <div>No of Results: {productsCount}</div>
         )}
         <div>
           Sort by&nbsp;
@@ -84,8 +84,8 @@ function SearchPage() {
           </select>
         </div>
       </div>
-      <div className="row">
-        <div className="align_start">
+      <div className="row align_start">
+        <div>
           <div className="filter_box">
             <h3>Category</h3>
             {loadingCategories ? (
