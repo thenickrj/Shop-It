@@ -5,27 +5,51 @@ export const prices = [
     max: 10000,
   },
   {
-    name: `₹1 to ₹250`,
+    name: (
+      <>
+        <span className="rupee_symbol">₹</span>1 to{" "}
+        <span className="rupee_symbol">₹</span>250
+      </>
+    ),
     min: 1,
     max: 250,
   },
   {
-    name: `₹250 to ₹500`,
+    name: (
+      <>
+        <span className="rupee_symbol">₹</span>250 to{" "}
+        <span className="rupee_symbol">₹</span>500
+      </>
+    ),
     min: 250,
     max: 500,
   },
   {
-    name: `₹500 to ₹750`,
+    name: (
+      <>
+        <span className="rupee_symbol">₹</span>500 to{" "}
+        <span className="rupee_symbol">₹</span>750
+      </>
+    ),
     min: 500,
     max: 750,
   },
   {
-    name: `₹750 to ₹1000`,
+    name: (
+      <>
+        <span className="rupee_symbol">₹</span>750 to{" "}
+        <span className="rupee_symbol">₹</span>1000
+      </>
+    ),
     min: 750,
     max: 1000,
   },
   {
-    name: `Above ₹1000`,
+    name: (
+      <>
+        Above <span className="rupee_symbol">₹</span>1000
+      </>
+    ),
     min: 1000,
     max: 10000,
   },

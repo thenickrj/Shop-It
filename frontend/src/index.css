@@ -6,7 +6,7 @@ html {
 body {
   margin: 0;
   font-size: 1.6rem;
-  font-family: Helvetica, Arial, sans-serif;
+  /* font-family: Helvetica, Arial, sans-serif; */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -581,4 +581,22 @@ button.close-sidebar {
 }
 .support-users .unread {
   background-color: #f02020;
+}
+
+.rupee_symbol {
+  font-family: Helvetica, Arial, sans-serif;
+}
+.align_start {
+  align-items: start;
+}
+
+.filter_box {
+  /* box-shadow: rgb(50 50 93 / 25%) 0px 2px 5px -1px,
+    rgb(0 0 0 / 30%) 0px 1px 3px -1px; */
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.2) 0px 2px 16px 0px;
+  padding: 10px;
+  margin: 10% 0;
+  background: white;
+  border-radius: 10px;
 }

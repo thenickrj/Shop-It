@@ -67,7 +67,7 @@ function SearchPage() {
         ) : error ? (
           <MessageBox variant="danger">{error}</MessageBox>
         ) : (
-          <div>No of Results: {productsCount}</div>
+          <div class="filter_box">No of Results: {productsCount}</div>
         )}
         <div>
           Sort by&nbsp;
@@ -85,9 +85,9 @@ function SearchPage() {
         </div>
       </div>
       <div className="row">
-        <div className="col-1">
-          <h3>Department</h3>
-          <div>
+        <div className="align_start">
+          <div className="filter_box">
+            <h3>Category</h3>
             {loadingCategories ? (
               <LoadingBox></LoadingBox>
             ) : errorCategories ? (
@@ -115,7 +115,7 @@ function SearchPage() {
               </ul>
             )}
           </div>
-          <div>
+          <div className="filter_box">
             <h3>Price</h3>
             <ul>
               {prices.map((p) => (
@@ -132,7 +132,7 @@ function SearchPage() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className="filter_box">
             <h3>Avg. Customer Review</h3>
             <ul>
               {ratings.map((r) => (
