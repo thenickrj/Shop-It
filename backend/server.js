@@ -134,7 +134,7 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(5000, () => {
+httpServer.listen(port, () => {
   console.log(`Server at http://localhost:${port}`);
 });
 // app.listen(5000, () => {
