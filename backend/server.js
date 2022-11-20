@@ -1,6 +1,6 @@
-var express = require("express");
-var { Server } = require("socket.io");
-var http = require("http");
+let express = require("express");
+let { Server } = require("socket.io");
+let http = require("http");
 var path = require("path");
 var dotenv = require("dotenv");
 var mongoose = require("mongoose");
@@ -23,7 +23,12 @@ var app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/shopit", {
+// mongoose.connect(process.env.MONGODB_URL || "mongodb://localhost/shopit", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
+
+mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -129,7 +134,7 @@ io.on("connection", (socket) => {
   });
 });
 
-httpServer.listen(port, () => {
+httpServer.listen(5000, () => {
   console.log(`Server at http://localhost:${port}`);
 });
 // app.listen(5000, () => {
