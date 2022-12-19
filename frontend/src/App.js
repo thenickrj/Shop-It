@@ -96,7 +96,7 @@ function App() {
   };
   return (
     <Container>
-      <Router>
+      <Router basename="/">
         <div className="">
           <header className="navBar row mob-row">
             <div>
